@@ -8,6 +8,12 @@ import {
 import { TestProvider } from "./context";
 import { Produto, Venda, EditarProduto } from "./screens";
 
+const PathComponent = {
+  "/venda": <Venda />,
+  "/venda/produto": <Produto />,
+  "/venda/editar-produto": <EditarProduto />
+}
+
 function App() {
   return (
     <Router>
@@ -20,7 +26,7 @@ function App() {
           exact
           // quando precisar colocar um contexto englobando mais de uma rota
           // pode ser feito dessa forma:
-          path={["/venda", "/venda/produto", "/venda/editar-produto"]}
+          path={Object.keys(PathComponent).map(item => item)}
           // quando ocorre a navegação para algum desses paths, o contexto é montado
           // desta forma o mesmo contexto pode ser reutilizado para várias rotas
           render={(props) => {
