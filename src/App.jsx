@@ -14,6 +14,18 @@ const PathComponent = {
   "/venda/editar-produto": <EditarProduto />
 }
 
+const componentProvider = (props) => {
+  const {
+    location: { pathname },
+  } = props;
+
+  return (
+    <TestProvider>
+      {PathComponent[pathname]}
+    </TestProvider>
+  )
+}
+
 function App() {
   return (
     <Router>
@@ -29,24 +41,7 @@ function App() {
           path={Object.keys(PathComponent).map(item => item)}
           // quando ocorre a navegação para algum desses paths, o contexto é montado
           // desta forma o mesmo contexto pode ser reutilizado para várias rotas
-          render={(props) => {
-            const {
-              location: { pathname },
-            } = props;
-            return (
-              <TestProvider>
-                {pathname === "/venda" ? (
-                  <Venda />
-                ) : pathname.includes("/venda/produto") ? (
-                  <Produto />
-                ) : pathname.includes("/venda/editar-produto") ? (
-                  <EditarProduto />
-                ) : (
-                  <Redirect to="/" />
-                )}
-              </TestProvider>
-            );
-          }}
+          render={(props) => componentProvider(props)}
         ></Route>
         <Route>
           <h1>404</h1>
