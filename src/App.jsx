@@ -3,7 +3,6 @@ import {
   Route,
   Link,
   Switch,
-  Redirect,
 } from "react-router-dom";
 import { TestProvider } from "./context";
 import { Produto, Venda, EditarProduto } from "./screens";
